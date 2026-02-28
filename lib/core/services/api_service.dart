@@ -16,7 +16,7 @@ class ApiService {
       );
       return _handleResponse(response);
     } catch (e) {
-      throw ServerException();
+      throw ServerException("error");
     }
   }
 
@@ -29,7 +29,32 @@ class ApiService {
       );
       return _handleResponse(response);
     } catch (e) {
-      throw ServerException();
+      throw ServerException("error");
+    }
+  }
+
+  Future<dynamic> put(String endpoint, Map<String, dynamic> body) async {
+    try {
+      final response = await client.put(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(body),
+      );
+      return _handleResponse(response);
+    } catch (e) {
+      throw ServerException("error");
+    }
+  }
+
+  Future<dynamic> delete(String endpoint) async {
+    try {
+      final response = await client.delete(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: {'Content-Type': 'application/json'},
+      );
+      return _handleResponse(response);
+    } catch (e) {
+      throw ServerException("error");
     }
   }
 
@@ -37,7 +62,7 @@ class ApiService {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json.decode(response.body);
     } else {
-      throw ServerException();
+      throw ServerException("error");
     }
   }
 }
