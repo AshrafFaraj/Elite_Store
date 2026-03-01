@@ -7,11 +7,6 @@ import 'features/favorites/presentation/bloc/favorite_event.dart';
 import 'features/home/presentation/bloc/product_bloc.dart';
 import 'injection_container.dart' as di;
 import 'main_page.dart';
-// import 'features/products/presentation/bloc/product_bloc.dart';
-// import 'features/cart/presentation/bloc/cart_bloc.dart';
-// import 'features/cart/presentation/bloc/cart_event.dart';
-// import 'features/favorites/presentation/bloc/favorite_bloc.dart';
-// import 'features/favorites/presentation/bloc/favorite_event.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_state.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
@@ -42,8 +37,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily:
-              'Cairo', // تأكد من إضافة الخط في pubspec.yaml إذا أردت استخدامه
+          fontFamily: 'Cairo',
           useMaterial3: true,
           scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         ),

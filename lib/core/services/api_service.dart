@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:elite_store/core/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import '../error/exceptions.dart';
 
 class ApiService {
   final http.Client client;
-  final String baseUrl = 'https://fakestoreapi.com';
+  final String baseUrl = AppConstants.baseUrl;
 
   ApiService({required this.client});
 

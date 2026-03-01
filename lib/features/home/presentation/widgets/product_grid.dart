@@ -15,19 +15,16 @@ class ProductGrid extends StatelessWidget {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) {
-          return const Center(
-              child: CircularProgressIndicator(color: AppColors.primary));
+          return const Center(child: CircularProgressIndicator(color: AppColors.primary));
         } else if (state is ProductLoaded) {
           if (state.products.isEmpty) {
-            return Center(
-                child: Text('لا توجد منتجات حالياً',
-                    style: TextStyle(fontSize: context.sp(16))));
+            return Center(child: Text('لا توجد منتجات حالياً', style: TextStyle(fontSize: context.sp(16))));
           }
-
-          final int crossAxisCount = Responsive.isDesktop(context)
-              ? 4
-              : Responsive.isTablet(context)
-                  ? 3
+          
+          final int crossAxisCount = Responsive.isDesktop(context) 
+              ? 4 
+              : Responsive.isTablet(context) 
+                  ? 3 
                   : 2;
 
           return GridView.builder(
@@ -58,9 +55,7 @@ class ProductGrid extends StatelessWidget {
             },
           );
         } else if (state is ProductError) {
-          return Center(
-              child: Text(state.message,
-                  style: TextStyle(fontSize: context.sp(16))));
+          return Center(child: Text(state.message, style: TextStyle(fontSize: context.sp(16))));
         }
         return const SizedBox();
       },

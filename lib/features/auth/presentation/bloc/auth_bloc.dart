@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.logoutUseCase,
     required this.repository,
   }) : super(AuthInitial()) {
+    
     on<CheckAuthStatusEvent>((event, emit) async {
       emit(AuthLoading());
       final result = await repository.getAuthenticatedUser();

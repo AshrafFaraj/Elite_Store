@@ -29,10 +29,12 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getProductsByCategory(String category) async {
+  Future<Either<Failure, List<Product>>> getProductsByCategory(
+      String category) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteProducts = await remoteDataSource.getProductsByCategory(category);
+        final remoteProducts =
+            await remoteDataSource.getProductsByCategory(category);
         return Right(remoteProducts);
       } catch (e) {
         return const Left(ServerFailure('حدث خطأ أثناء جلب منتجات التصنيف'));
