@@ -33,7 +33,7 @@ class OtpScreen extends StatelessWidget {
       key: const ValueKey('otp_screen'),
       width: double.infinity,
       constraints: const BoxConstraints(maxWidth: 420),
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(32),
@@ -168,7 +168,7 @@ class OtpScreen extends StatelessWidget {
               children: List.generate(4, (index) {
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8),
-                  width: 64,
+                  width: 60,
                   height: 72,
                   child: TextField(
                     controller: otpControllers[index],
