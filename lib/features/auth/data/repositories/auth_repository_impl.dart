@@ -22,7 +22,8 @@ class AuthRepositoryImpl implements AuthRepository {
       String email, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteUser = await remoteDataSource.login(email, password);
+        final remoteUser =
+            await remoteDataSource.loginWithEmail(email, password);
         await localDataSource.cacheUser(remoteUser);
         return Right(remoteUser);
       } catch (e) {

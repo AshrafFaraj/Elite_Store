@@ -1,3 +1,4 @@
+import 'package:elite_store/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -122,6 +123,8 @@ class _LoginPageState extends State<LoginPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('مرحباً بك ${state.user.name}')),
             );
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MainPage()));
             // هنا يتم الانتقال للصفحة الرئيسية
           } else if (state is AuthError) {
             setState(() {

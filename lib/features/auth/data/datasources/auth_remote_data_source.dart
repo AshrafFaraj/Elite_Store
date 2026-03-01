@@ -2,7 +2,7 @@ import '../../../../core/services/api_service.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> login(String username, String password);
+  Future<UserModel> loginWithEmail(String email, String password);
   Future<UserModel> loginWithPhone(String phone);
 }
 
@@ -12,19 +12,39 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<UserModel> login(String username, String password) async {
-    final response = await apiService.post('/auth/login', {
-      'username': username,
-      'password': password,
-    });
-    return UserModel.fromJson(response);
+  Future<UserModel> loginWithEmail(String email, String password) async {
+    // محاكاة تسجيل الدخول بالإيميل
+    await Future.delayed(const Duration(seconds: 1));
+    if (email == 'test@test.com' && password == '123456') {
+      return const UserModel(
+        id: '1',
+        name: 'مستخدم تجريبي',
+        email: 'test@test.com',
+      );
+    }
+
+    // في حال استخدام API حقيقي:
+    // final response = await apiService.post('/auth/login', {
+    //   'email': email,
+    //   'password': password,
+    // });
+    // return UserModel.fromJson(response);
+
+    return const UserModel(
+      id: '1',
+      name: 'مستخدم تجريبي',
+      email: 'test@test.com',
+    );
   }
 
   @override
   Future<UserModel> loginWithPhone(String phone) async {
-    final response = await apiService.post('/auth/login', {
-      'phone': phone,
-    });
-    return UserModel.fromJson(response);
+    // محاكاة تسجيل الدخول برقم الجوال
+    await Future.delayed(const Duration(seconds: 1));
+    return UserModel(
+      id: '2',
+      name: 'مستخدم جوال',
+      phone: phone,
+    );
   }
 }

@@ -8,15 +8,16 @@ import '../../domain/repositories/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginWithEmailUseCase loginWithEmailUseCase;
+  final LoginWithPhoneUseCase loginWithPhoneUseCase;
   final LogoutUseCase logoutUseCase;
   final AuthRepository repository; // لجلب حالة المستخدم الحالية
 
   AuthBloc({
     required this.loginWithEmailUseCase,
+    required this.loginWithPhoneUseCase,
     required this.logoutUseCase,
     required this.repository,
   }) : super(AuthInitial()) {
-    
     on<CheckAuthStatusEvent>((event, emit) async {
       emit(AuthLoading());
       final result = await repository.getAuthenticatedUser();
@@ -36,6 +37,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       final result = await loginWithEmailUseCase(
         LoginParams(email: event.email, password: event.password),
+      );
+      result.fold(
+        (failure) => emit(AuthError(failure.message)),
+        (user) => emit(Authenticated(user)),
+      );
+    });
+
+    on<LoginWithPhoneEvent>((event, emit) async {
+      emit(AuthLoading());
+      final result = await loginWithPhoneUseCase(
+        LoginPhoneParams(phone: event.phone),
       );
       result.fold(
         (failure) => emit(AuthError(failure.message)),

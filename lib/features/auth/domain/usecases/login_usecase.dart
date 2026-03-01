@@ -20,3 +20,19 @@ class LoginWithEmailUseCase implements UseCase<User, LoginParams> {
     return await repository.loginWithEmail(params.email, params.password);
   }
 }
+
+class LoginPhoneParams {
+  final String phone;
+  LoginPhoneParams({required this.phone});
+}
+
+class LoginWithPhoneUseCase implements UseCase<User, LoginPhoneParams> {
+  final AuthRepository repository;
+
+  LoginWithPhoneUseCase(this.repository);
+
+  @override
+  Future<Either<Failure, User>> call(LoginPhoneParams params) async {
+    return await repository.loginWithPhone(params.phone);
+  }
+}

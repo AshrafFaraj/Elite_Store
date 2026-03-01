@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'core/theme/app_colors.dart';
 import 'core/utils/responsive.dart';
+import 'features/home/presentation/pages/home_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    // const ProductsPage(),
+    const HomePage(),
     // const FavoritesPage(),
     // const CartPage(),
     const Center(child: Text('الملف الشخصي')),
