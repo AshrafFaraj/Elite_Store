@@ -42,12 +42,15 @@ class ProductGrid extends StatelessWidget {
             itemBuilder: (context, index) {
               return ProductCard(
                 product: state.products[index],
+                heroTag: 'home_product_${state.products[index].id}',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ProductDetailsPage(product: state.products[index]),
+                      builder: (context) => ProductDetailsPage(
+                        product: state.products[index],
+                        heroTag: 'home_product_${state.products[index].id}',
+                      ),
                     ),
                   );
                 },

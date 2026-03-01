@@ -2,6 +2,8 @@ import 'package:elite_store/features/cart/presentation/bloc/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/cart/presentation/bloc/cart_bloc.dart';
+import 'features/favorites/presentation/bloc/favorite_bloc.dart';
+import 'features/favorites/presentation/bloc/favorite_event.dart';
 import 'features/home/presentation/bloc/product_bloc.dart';
 import 'injection_container.dart' as di;
 import 'main_page.dart';
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
             create: (_) => di.sl<AuthBloc>()..add(CheckAuthStatusEvent())),
         BlocProvider(create: (_) => di.sl<ProductBloc>()),
         BlocProvider(create: (_) => di.sl<CartBloc>()..add(LoadCartEvent())),
-        // BlocProvider(create: (_) => di.sl<FavoriteBloc>()..add(LoadFavoritesEvent())),
+        BlocProvider(
+            create: (_) => di.sl<FavoriteBloc>()..add(LoadFavoritesEvent())),
       ],
       child: MaterialApp(
         title: 'Elite Store',

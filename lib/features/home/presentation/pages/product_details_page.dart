@@ -9,11 +9,16 @@ import '../../../cart/presentation/bloc/cart_event.dart';
 import '../../../cart/domain/entities/cart_item.dart';
 import '../../../cart/presentation/pages/cart_page.dart';
 import '../../../cart/presentation/bloc/cart_state.dart';
+import '../../../favorites/presentation/bloc/favorite_bloc.dart';
+import '../../../favorites/presentation/bloc/favorite_event.dart';
+import '../../../favorites/presentation/bloc/favorite_state.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final Product product;
+  final String heroTag;
 
-  const ProductDetailsPage({super.key, required this.product});
+  const ProductDetailsPage(
+      {super.key, required this.product, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -90,26 +95,74 @@ class ProductDetailsPage extends StatelessWidget {
                   // Product Image
                   Center(
                     child: Hero(
-                      tag: 'product_${product.id}',
-                      child: Container(
-                        height: context.rh(300),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(context.rw(16)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
+                      tag: heroTag,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: context.rh(300),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.circular(context.rw(16)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        padding: EdgeInsets.all(context.rw(16)),
-                        child: Image.network(
-                          product.image,
-                          fit: BoxFit.contain,
-                        ),
+                            padding: EdgeInsets.all(context.rw(16)),
+                            child: Image.network(
+                              product.image,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Positioned(
+                            top: context.rh(16),
+                            right: context.rw(16),
+                            child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                              builder: (context, state) {
+                                bool isFavorite = false;
+                                if (state is FavoriteLoaded) {
+                                  isFavorite = state.favorites
+                                      .any((p) => p.id == product.id);
+                                }
+                                return GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<FavoriteBloc>()
+                                        .add(ToggleFavoriteEvent(product));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(context.rw(8)),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.05),
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : AppColors.grey400,
+                                      size: context.sp(24),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

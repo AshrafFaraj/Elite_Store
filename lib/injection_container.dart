@@ -17,6 +17,10 @@ import 'features/cart/data/datasources/cart_local_data_source.dart';
 import 'features/cart/data/repositories/cart_repository_impl.dart';
 import 'features/cart/domain/repositories/cart_repository.dart';
 import 'features/cart/presentation/bloc/cart_bloc.dart';
+import 'features/favorites/data/datasources/favorite_local_data_source.dart';
+import 'features/favorites/data/repositories/favorite_repository_impl.dart';
+import 'features/favorites/domain/repositories/favorite_repository.dart';
+import 'features/favorites/presentation/bloc/favorite_bloc.dart';
 import 'features/home/data/datasources/product_remote_data_source.dart';
 import 'features/home/data/repositories/product_repository_impl.dart';
 import 'features/home/domain/repositories/product_repository.dart';
@@ -75,9 +79,11 @@ Future<void> init() async {
       () => CartLocalDataSourceImpl(sharedPreferences: sl()));
 
   //! Features - Favorites
-  // sl.registerFactory(() => FavoriteBloc(repository: sl()));
-  // sl.registerLazySingleton<FavoriteRepository>(() => FavoriteRepositoryImpl(localDataSource: sl()));
-  // sl.registerLazySingleton<FavoriteLocalDataSource>(() => FavoriteLocalDataSourceImpl(sharedPreferences: sl()));
+  sl.registerFactory(() => FavoriteBloc(repository: sl()));
+  sl.registerLazySingleton<FavoriteRepository>(
+      () => FavoriteRepositoryImpl(localDataSource: sl()));
+  sl.registerLazySingleton<FavoriteLocalDataSource>(
+      () => FavoriteLocalDataSourceImpl(sharedPreferences: sl()));
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
